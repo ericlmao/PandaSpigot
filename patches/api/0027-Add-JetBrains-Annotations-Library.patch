@@ -1,0 +1,18 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric <negggative@gmail.com>
+Date: Fri, 15 Mar 2024 20:36:51 -0300
+Subject: [PATCH] Add JetBrains Annotations Library
+
+
+diff --git a/build.gradle.kts b/build.gradle.kts
+index 22a5fe9c59d1b2a8283e1ebb503c77b2be892fb5..505a11ae6f40feec4aeaeda904583a821d122654 100644
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -15,6 +15,7 @@ dependencies {
+     api("org.yaml:snakeyaml:1.15")
+     api("net.md-5:bungeecord-chat:1.8-SNAPSHOT")
+     compileOnlyApi("net.sf.trove4j:trove4j:3.0.3") // provided by server
++    api("org.jetbrains.annotations:annotations:13.0") // PandaSpigot - Add JetBrains Annotations
+ 
+     // bundled with Minecraft, should be kept in sync
+     api("com.google.guava:guava:17.0")

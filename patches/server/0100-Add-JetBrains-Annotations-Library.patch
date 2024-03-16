@@ -1,0 +1,20 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric <negggative@gmail.com>
+Date: Fri, 15 Mar 2024 20:37:10 -0300
+Subject: [PATCH] Add JetBrains Annotations Library
+
+	modified:   build.gradle.kts
+
+diff --git a/build.gradle.kts b/build.gradle.kts
+index 012ab25b96fde290063444b6dfc246d0bda45ea5..69bc81edaf5c3a56e6919b31af26cad3ab789894 100644
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -18,6 +18,8 @@ dependencies {
+     }
+     // PandaSpigot end
+ 
++    api("org.jetbrains.annotations:annotations:13.0") // PandaSpigot - Add JetBrains Annotations
++
+     // Minecraft libraries:
+     implementation("io.netty:netty-all:4.1.91.Final") // PandaSpigot - Update Netty to 4.1.x
+     implementation("com.mojang:authlib:1.5.21")

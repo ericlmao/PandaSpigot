@@ -1,0 +1,161 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric <negggative@gmail.com>
+Date: Fri, 15 Mar 2024 21:08:48 -0300
+Subject: [PATCH] Add KitPvP Statistics
+
+
+diff --git a/src/main/java/games/negative/kitpvp/api/KitPvPData.java b/src/main/java/games/negative/kitpvp/api/KitPvPData.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..90a63c31b4d5ffe84f757dc727c3e08ca86f68ba
+--- /dev/null
++++ b/src/main/java/games/negative/kitpvp/api/KitPvPData.java
+@@ -0,0 +1,124 @@
++package games.negative.kitpvp.api;
++
++/**
++ * Represents specified data for KitPvP
++ */
++public interface KitPvPData {
++
++    /**
++     * Retrieves the number of kills for the KitPvPData.
++     *
++     * @return The number of kills.
++     */
++    int getKills();
++
++    /**
++     * Sets the number of kills for a player.
++     *
++     * @param kills the number of kills to set
++     */
++    void setKills(int kills);
++
++    /**
++     * Increments the number of kills by 1.
++     * This method increases the value of kills in the KitPvPData instance by 1.
++     */
++    default void addKill() {
++        setKills(getKills() + 1);
++    }
++
++    /**
++     * Retrieves the number of deaths.
++     *
++     * @return The number of deaths
++     */
++    int getDeaths();
++
++    /**
++     * Sets the number of deaths for KitPvPData.
++     *
++     * @param deaths the number of deaths to set for KitPvPData
++     */
++    void setDeaths(int deaths);
++
++    /**
++     * Increases the number of deaths by 1 for the player.
++     * This method updates the total number of deaths in the KitPvPData.
++     */
++    default void addDeath() {
++        setDeaths(getDeaths() + 1);
++    }
++
++    /**
++     * Retrieves the balance of the player.
++     *
++     * @return The balance of the player.
++     */
++    long getBalance();
++
++    /**
++     * Sets the balance of the player in KitPvP.
++     *
++     * @param balance the new balance to set
++     */
++    void setBalance(long balance);
++
++    /**
++     * Increases the balance of the player by the specified amount.
++     *
++     * @param amount the amount to add to the balance
++     */
++    default void addBalance(long amount) {
++        setBalance(getBalance() + amount);
++    }
++
++    /**
++     * Removes a specified amount from the balance.
++     *
++     * @param amount the amount to be removed from the balance
++     * @return true if the balance was successfully updated, false if the balance is insufficient
++     */
++    default boolean removeBalance(long amount) {
++        if (getBalance() <= amount) return false;
++
++        setBalance(getBalance() - amount);
++        return true;
++    }
++
++    /**
++     * Retrieves the current kill streak of the player.
++     *
++     * @return The current kill streak.
++     */
++    int getKillStreak();
++
++    /**
++     * Sets the kill streak for the player.
++     *
++     * @param killStreak the new kill streak to set
++     */
++    void setKillStreak(int killStreak);
++
++     /**
++      * Adds the specified amount to the kill streak of the player.
++      * This method updates the current kill streak in the KitPvPData instance by the given amount.
++      *
++      * @param amount the amount to add to the kill streak
++      */
++     void addKillStreak(int amount);
++
++    /**
++     * Retrieves the best kill streak of the player.
++     *
++     * @return The best kill streak of the player.
++     */
++    int getBestKillStreak();
++
++    /**
++     * Sets the best kill streak for the player in KitPvPData.
++     *
++     * @param bestKillStreak the best kill streak to set for the player
++     */
++    void setBestKillStreak(int bestKillStreak);
++
++}
+diff --git a/src/main/java/org/bukkit/OfflinePlayer.java b/src/main/java/org/bukkit/OfflinePlayer.java
+index e98706a668b2d70216e13a1fe8bff3340697cd0c..6abac8404e8a90cf6daed06e20ca4e021a21b581 100644
+--- a/src/main/java/org/bukkit/OfflinePlayer.java
++++ b/src/main/java/org/bukkit/OfflinePlayer.java
+@@ -3,6 +3,8 @@ package org.bukkit;
+ import java.util.Date;
+ import java.util.UUID;
+ 
++import com.avaje.ebean.validation.NotNull;
++import games.negative.kitpvp.api.KitPvPData;
+ import org.bukkit.configuration.serialization.ConfigurationSerializable;
+ import org.bukkit.entity.AnimalTamer;
+ import org.bukkit.entity.Player;
+@@ -115,4 +117,11 @@ public interface OfflinePlayer extends ServerOperator, AnimalTamer, Configuratio
+      */
+     public Location getBedSpawnLocation();
+ 
++    /**
++     * Retrieves the KitPvP data for the specified player.
++     *
++     * @return The KitPvP data for the player.
++     */
++    @NotNull
++    KitPvPData getKitPvPData();
+ }
